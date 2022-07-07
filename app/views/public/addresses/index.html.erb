@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row mt-5 mb-4">
+    <div class="col">
+      <h4 class="active">配送先登録/一覧</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-mt-12">
+      <%= form_with model: @address do |f| %>
+      <table style="margin-bottom:30px;">
+        <tr>
+          <th class="col-md-4 active">郵便番号</th>
+          <td class="col-md-4">
+            <%= f.number_field :post_code, placeholder: '半角/ハイフン不要' %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="col-md-4 active">住所</th>
+          <td class="col-md-4">
+            <%= f.text_area :address, placeholder: '東京都渋谷区代々木神園町0-0' %>
+          </td>
+        </tr>
+
+        <tr>
+          <th class="col-md-4 active">宛名</th>
+          <td class="col-md-4">
+            <%= f.text_field :name, placeholder: '令和道子' %>
+          </td>
+        </tr>
+
+        <tr>
+          <th></th>
+          <td class="col-md-4">
+          <%= f.submit "新規登録", class:"btn btn-primary" %>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+    </div>
+  </div>
+
+   <div class="row">
+    <div class="col-lg-8">
+     <table class="table table-bordered">
+       <thead>
+        <tr class="table-dark">
+          <th class="col-lg-2 active">郵便番号</th>
+          <th>住所</th>
+          <th>宛名</th>
+          <th></th>
+        </tr>
+       </thead>
+       <% @addresses.each do |address| %>
+       <tbody>
+         <tr>
+           <td>
+             <%= address.post_code.to_s.insert(3, "-") %>
+           </td>
+           <td>
+             <%= address.address %>
+            </td>
+           <td>
+             <%= address.name %>
+            </td>
+           <td>
+             <%= link_to "編集する", edit_address_path(address), class:"btn btn-success" %>
+             &emsp;&emsp;
+             <%= link_to "削除する", address_path(address), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class:"btn btn-danger" %>
+           </td>
+         </tr>
+       </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
