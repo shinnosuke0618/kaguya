@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-2">
+      <%= render 'search', genres: @genres %>
+    </div>
+
+    <div class="col-md-9 offset-1">
+      <h2 class="table-active">商品一覧</h2>
+      <h4>(全<%= @items.count %>件)</h4>
+
+      <div class="d-flex flex-wrap">
+        <% @items.each do |item| %>
+          <div class="mt-5 mr-4">
+            <% if item.is_active == true %>
+              <%= link_to item_path(item), :style =>'text-decoration: none' do %>
+                <%= image_tag item.get_image, size:'160x165', class: 'shadow' %><br>
+                <div class="mt-3">
+                  <p style="color: black"><strong><%= item.name %></strong></p><br>
+                </div>
+              <% end %>
+              <p class="text-right">¥ <%= item.price %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <%= paginate @items %>
+    </div>
+  </div>
+</div>
